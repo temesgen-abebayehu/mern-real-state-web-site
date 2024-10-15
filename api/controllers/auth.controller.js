@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 
 
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
     const {username, email, password, } = req.body;
     try {
         const usernameExist = await User.findOne({username});
@@ -37,7 +37,6 @@ export const register = async (req, res) => {
 
         res.status(200).json(user);
     } catch (error) {
-        console.log(`Error on registerController: ${error.message}`);
-        res.status(501).json("server error");
+        next(error);
     }
 };
