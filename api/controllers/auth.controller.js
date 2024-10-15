@@ -3,16 +3,11 @@ import bcrypt from 'bcryptjs';
 
 
 export const register = async (req, res, next) => {
-    const {username, email, password, } = req.body;
+    const {username, email, password } = req.body;
     try {
         const usernameExist = await User.findOne({username});
         if(usernameExist){
             return res.status(401).json({error: "Usename already taken"});
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(email)){
-            return res.status(400).json({error: "invalid email format"});
         }
 
         const emailExist = await User.findOne({email});
@@ -20,7 +15,7 @@ export const register = async (req, res, next) => {
             return res.status(400).json({error: "Email already taken"});
         }
 
-        if(password.length() < 6) {
+        if(password.length < 6) {
             return res.status(400).json({error: "Password length should be at least 6 character"});
         }
 
