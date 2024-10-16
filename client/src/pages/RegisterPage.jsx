@@ -1,17 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function RegisterPage() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value
+    }));
   };
 
   const handleRegister = async (e) => {
@@ -29,11 +34,10 @@ function RegisterPage() {
 
       const data = await res.json();
       console.log(data);
-      setFormData([]);
 
-      if(data.success === false){
+      if (!res.ok) {
         setLoading(false);
-        setError(data.message);
+        setError(data.message || "An error occurred");
         return;
       }
 
@@ -56,6 +60,7 @@ function RegisterPage() {
           type="text"
           placeholder="Username"
           id="username"
+          value={formData.username}
           onChange={handleChange}
           className="p-3 border rounded-md focus:outline-none"
         />
@@ -63,6 +68,7 @@ function RegisterPage() {
           type="email"
           placeholder="Email"
           id="email"
+          value={formData.email}
           onChange={handleChange}
           className="p-3 border rounded-md focus:outline-none"
         />
@@ -70,23 +76,22 @@ function RegisterPage() {
           type="password"
           placeholder="Password"
           id="password"
+          value={formData.password}
           onChange={handleChange}
           className="p-3 border rounded-md focus:outline-none"
         />
-        <button 
-          type="submit" disabled={loading}
+        <button
+          type="submit"
+          disabled={loading}
           className="bg-emerald-600 text-white rounded-md uppercase p-3 font-semibold hover:opacity-90 disabled:opacity-75"
         >
-          {loading? 'Loading...':"Register"}
+          {loading ? "Loading..." : "Register"}
         </button>
       </form>
 
       <div className="flex gap-2 mt-3">
         <p>Already have an account?</p>
-        <Link
-          to="/login"
-          className="text-blue-900 font-semibold hover:underline"
-        >
+        <Link to="/login" className="text-blue-900 font-semibold hover:underline">
           Login
         </Link>
       </div>
