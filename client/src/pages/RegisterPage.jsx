@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({});
-  const [lodding, setLoding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      setLoding(true);
+      setLoading(true);
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -32,16 +32,16 @@ function RegisterPage() {
       setFormData([]);
 
       if(data.success === false){
-        setLoding(false);
+        setLoading(false);
         setError(data.message);
         return;
       }
 
-      setLoding(false);
+      setLoading(false);
       setError(null);
       navigate('/login');
     } catch (error) {
-      setLoding(false);
+      setLoading(false);
       setError(error.message);
     }
   };
@@ -74,10 +74,10 @@ function RegisterPage() {
           className="p-3 border rounded-md focus:outline-none"
         />
         <button 
-          type="submit" disabled={lodding}
+          type="submit" disabled={loading}
           className="bg-emerald-600 text-white rounded-md uppercase p-3 font-semibold hover:opacity-90 disabled:opacity-75"
         >
-          {lodding? 'Loding...':"Register"}
+          {loading? 'Loading...':"Register"}
         </button>
       </form>
 
