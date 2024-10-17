@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginStart, loginSuccess, loginFailure } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "../components/OAuth";
 
 function loginPage() {
   const [formData, setFormData] = useState({
@@ -44,8 +45,7 @@ function loginPage() {
       dispatch(loginSuccess(data));
       navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(loginFailure(error.message));
     }
   };
 
@@ -75,6 +75,7 @@ function loginPage() {
         >
           {loading? 'Loading...':"Login"}
         </button>
+        <OAuth />
       </form>
 
       <div className="flex gap-2 mt-3">
