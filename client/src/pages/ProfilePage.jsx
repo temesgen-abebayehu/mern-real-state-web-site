@@ -1,10 +1,13 @@
-
+import React from "react";
+import { useSelector } from "react-redux";
 
 function ProfilePage() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center p-7">Profile</h1>
       <form className="flex flex-col gap-3">
+        <img src={currentUser.avatar} alt="profile photo" className="rounded-full w-24 h-24 object-cover cursor-pointer self-center m-3"/>
         <input
           type="text"
           placeholder="Username"
