@@ -90,4 +90,13 @@ export const google = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
+
+export const logOut = (req, res, next) => {
+    try {
+        res.clearCookie('token');
+        res.status(200).json("Succussfully logged out");
+    } catch (error) {
+        next(error);
+    }
+};
