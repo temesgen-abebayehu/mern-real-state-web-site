@@ -3,7 +3,14 @@ import { useSelector } from "react-redux";
 import { useRef } from "react";
 import { app } from "../firebase";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import {updateUserStart, updateUserSuccess, updateUserFailure} from "../redux/user/userSlice.js";
+import {
+  updateUserStart, 
+  updateUserSuccess, 
+  updateUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure
+} from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 
 // //firebase storege info
@@ -92,6 +99,23 @@ function ProfilePage() {
     }
   }
 
+  const handleDeleteUser = async () =>{
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if(data.success === false){
+        return dispatch(deleteUserFailure(data.message));        
+      }
+
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center p-7">Profile</h1>
@@ -142,7 +166,7 @@ function ProfilePage() {
       </form>
       
       <div className="flex justify-between my-4">
-        <span className="text-red-600 cursor-pointer font-semibold">Delete accoute</span>
+        <span onClick={handleDeleteUser} className="text-red-600 cursor-pointer font-semibold">Delete accoute</span>
         <span className="text-red-600 cursor-pointer font-semibold">Logout</span>
       </div>
       

@@ -2,9 +2,6 @@ import bcrypt from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import User from '../models/user.model.js';
 
-export const test = (req, res) => {
-    res.send("api working!");
-};
 
 export const updateUser = async (req, res, next) => {  
     
@@ -29,6 +26,20 @@ export const updateUser = async (req, res, next) => {
 
         const { password, ...others } = updatedUser._doc;
         res.status(200).json(others);
+    } catch (error) {
+        next(errorHandler(400, error.message));
+    }
+};
+
+export const deleteUser = async (req, res, next) => {
+    if (req.user.id !== req.params.id) {
+        return next(errorHandler(403, 'Forbidden'));
+    }
+
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie('token');
+        res.status(200).json('User has been deleted');
     } catch (error) {
         next(errorHandler(400, error.message));
     }
