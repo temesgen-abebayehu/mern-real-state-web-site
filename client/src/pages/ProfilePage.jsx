@@ -15,6 +15,7 @@ import {
   logoutUserFailure
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 // //firebase storege info
 // service firebase.storage {
@@ -121,6 +122,7 @@ function ProfilePage() {
 
   const handleLogout = async () =>{
     try {
+      dispatch(logoutUserStart());
       const res = await fetch('/api/auth/logout');
       const data = await res.json();
       if(data.success === false){
@@ -178,7 +180,13 @@ function ProfilePage() {
           className="bg-emerald-600 text-white rounded-md uppercase p-3 font-semibold hover:opacity-90 disabled:opacity-75"
         >
           {loading ? "Loading..." : "Update"}
-        </button>        
+        </button>
+        <Link 
+          to='/create-listing'
+          className=" text-center bg-emerald-800 text-white rounded-md p-3 font-semibold hover:opacity-90 disabled:opacity-75"
+        >
+          Create Listing
+        </Link>    
       </form>
       
       <div className="flex justify-between my-4">
