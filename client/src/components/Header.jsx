@@ -29,7 +29,7 @@ function Header() {
           <Link to="/profile">
             {currentUser? 
               <img src={currentUser.avatar} className="rounded-full w-7 h-7 object-cover" alt="profile" />:
-              <li className="hidden sm:inline hover:underline text-slate-800">Register</li>
+              <li className="hidden sm:inline hover:underline text-slate-800">Login</li>
             }
           </Link>
         </ul>

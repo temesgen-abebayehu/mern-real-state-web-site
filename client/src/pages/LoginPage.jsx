@@ -79,7 +79,7 @@ function loginPage() {
       </form>
 
       <div className="flex gap-2 mt-3">
-        <p>Haven't an account?</p>
+        <p>Don't have an account?</p>
         <Link
           to="/register"
           className="text-blue-900 font-semibold hover:underline"
