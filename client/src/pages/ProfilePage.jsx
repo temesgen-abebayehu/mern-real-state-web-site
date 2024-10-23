@@ -160,6 +160,22 @@ function ProfilePage() {
     }
   };
 
+  const handleListingDelete = async (listId)=>{
+    try {
+      const res = await fetch(`/api/listing/delete/${listId}`, {method: 'DELETE',});
+      const data = await res.json();
+
+      if(!data.success){
+        throw new Error(data.message);
+      }
+
+      setUserListings((pre) => pre.filter((list)=> list._id !== listId));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center p-7">Profile</h1>
@@ -262,7 +278,7 @@ function ProfilePage() {
           <h1 className="text-center text-2xl font-semibold my-4">Your Listing</h1>
           {
             userListings.map((list) => (
-              <div key={list.id} className="flex justify-between border rounded-md items-center gap-3">
+              <div key={list._id} className="flex justify-between border rounded-md items-center gap-3">
                 <Link to={`/listing/${list._id}`}>
                   <img className="w-32 h-32 object-contain my-2" src={list.imageUrls[0]} alt="Listing Cover" />
                 </Link>
@@ -276,6 +292,7 @@ function ProfilePage() {
                     Edit
                   </button>
                   <button
+                    onClick={() => handleListingDelete(list._id)}
                     className="text-red-700 font-semibold hover:underline"
                   >
                     Delete
