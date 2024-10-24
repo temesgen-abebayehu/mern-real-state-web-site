@@ -31,3 +31,26 @@ export const deleteListing = async (req, res, next) => {
         next(error);
     }
 };
+
+export const updateListing = async (req, res, next) => {
+    const existListing = await Listing.findById(req.params.id);
+
+    if(!existListing){
+        return next(errorHandler(404, 'List not found.'));
+    }
+
+    if(req.user.id !== existListing.userRef){
+        return next(errorHandler(401, 'You are not allowed edit this list!'));
+    }
+
+    try {
+        const editedList = await Listing.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        );
+        res.status(200).json(editedList);
+    } catch (error) {
+        next(error);
+    }
+};
