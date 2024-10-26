@@ -270,8 +270,8 @@ function UpdateListing() {
                 <span>Number of Bedrooms * :</span>
                 <input
                   type="number"
-                  min="0"
-                  max="20"
+                  min="1"
+                  max="2000"
                   id="bedrooms"
                   className=" p-1 rounded-sm focus:outline-none"
                   required
@@ -284,8 +284,8 @@ function UpdateListing() {
                 <span>Number of Bathrooms * :</span>
                 <input
                   type="number"
-                  min="0"
-                  max="20"
+                  min="1"
+                  max="2000"
                   id="bathrooms"
                   className=" p-1 rounded-sm focus:outline-none"
                   required

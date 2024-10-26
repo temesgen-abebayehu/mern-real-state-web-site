@@ -5,6 +5,8 @@ import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 
+import { FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking } from "react-icons/fa";
+
 function Listing() {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState([]);
@@ -20,7 +22,7 @@ function Listing() {
         const res = await fetch(`/api/listing/${params.id}`);
         const data = await res.json();
 
-        if(!data.success){
+        if (!data.success) {
           setError(true);
           setLoading(false);
         }
@@ -44,16 +46,45 @@ function Listing() {
       {error && <h1>Something went wrong!</h1>}
       {!loading && !error && listing && listing.imageUrls && (
         <div>
-          <Swiper navigation>
-            {listing.imageUrls.map((url) => (
-              <SwiperSlide key={url}>
-                <div
-                  className="h-[300px]"
-                  style={{ background: `url(${url}) center no-repeat`, backgroundSize: 'cover'}}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div>
+            <Swiper navigation>
+              {listing.imageUrls.map((url) => (
+                <SwiperSlide key={url}>
+                  <div
+                    className="h-[300px]"
+                    style={{
+                      background: `url(${url}) center no-repeat`,
+                      backgroundSize: "cover",
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          <div className="p-4 flex flex-col gap-3">
+            <div className="text-3xl font-semibold">
+              <p>{listing.name} -  <span className="text-slate-700 text-2xl">${+listing.regularPrice - +listing.discountPrice}/Month</span></p>
+            </div>
+            <div className="text-green-700 flex flex-row items-center gap-2 sm:gap-4 font-semibold mt-6">
+              <FaMapMarkerAlt />
+              {listing.address}
+            </div>
+            <div className="flex gap-4 sm:gap-6 font-semibold text-center text-white">
+              <p className="bg-red-700 rounded-md p-2 min-w-40">{listing.type == 'rent' ? 'For Rent': 'For Sell'}</p>
+              {listing.discountPrice && <p className="bg-green-700 rounded-md p-2 min-w-40">${listing.discountPrice} Discounts</p>}
+            </div>
+            <div>
+              <p><span className="font-semibold">Discription - </span> {listing.description}</p>
+            </div>
+            <div className="flex gap-4 sm:gap-6 flex-wrap text-green-700 font-semibold">
+              <p className="flex gap-2 items-center "><FaBed /> {listing.bedrooms} {listing.bedrooms > 1 ? 'Beds' : 'Bed'}</p>
+              <p className="flex gap-2 items-center"><FaBath /> {listing.bathrooms} {listing.bathrooms > 1 ? 'Baths' : 'Bath'}</p>
+              <p className="flex gap-2 items-center"><FaParking /> {listing.parking  ? 'Having Parking Spot' : 'No Parking spot'}</p>
+              <p className="flex gap-2 items-center"><FaChair /> {listing.furnished ? 'Furnished' : 'Not Furnished'}</p>
+            </div>
+            <button className="text-center bg-emerald-800 text-white rounded-md p-3 font-semibold hover:opacity-90 disabled:opacity-75 mt-6">Contact with owner</button>
+          </div>
         </div>
       )}
     </div>
