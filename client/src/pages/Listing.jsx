@@ -6,10 +6,14 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 
 import { FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import Contact from "../components/Contact.jsx";
 
 function Listing() {
+  const {currentUser} = useSelector((state) => state.user);
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState([]);
+  const [contact, setContact] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const params = useParams();
@@ -38,7 +42,7 @@ function Listing() {
 
     fetchListing();
   }, [params.id]);
-  console.log(error);
+
 
   return (
     <div>
@@ -83,7 +87,13 @@ function Listing() {
               <p className="flex gap-2 items-center"><FaParking /> {listing.parking  ? 'Having Parking Spot' : 'No Parking spot'}</p>
               <p className="flex gap-2 items-center"><FaChair /> {listing.furnished ? 'Furnished' : 'Not Furnished'}</p>
             </div>
-            <button className="text-center bg-emerald-800 text-white rounded-md p-3 font-semibold hover:opacity-90 disabled:opacity-75 mt-6">Contact with owner</button>
+            {currentUser && currentUser._id !== listing.userRef && !contact &&
+              <button 
+                onClick={()=> setContact(true)}
+                className="text-center bg-emerald-800 text-white rounded-md p-3 font-semibold hover:opacity-90 disabled:opacity-75 mt-6"
+              >Contact with owner</button>
+            }
+            {contact && <Contact listing={listing}/>}
           </div>
         </div>
       )}
