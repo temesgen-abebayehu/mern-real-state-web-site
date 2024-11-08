@@ -30,7 +30,7 @@ function Header() {
     <header className=" bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to='/'>
-          <h1 className="font-bold text-sm sm:text-xl">logo</h1>
+          <h1 className="font-bold text-2xl sm:text-3xl"><span className="text-slate-700">Tom</span>Estate</h1>
         </Link>
         <form onSubmit={handleSubmit} className="p-3 rounded-lg flex items-center bg-slate-100 ">
           <input
