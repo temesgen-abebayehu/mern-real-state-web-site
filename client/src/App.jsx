@@ -1,4 +1,4 @@
-import {Route, Routes}  from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
@@ -22,11 +22,9 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/listing/:id' element={<Listing />} />
-        <Route element={<PrivateRoute />} >
-          <Route path='/profile' element={<ProfilePage />} />
-          <Route path='/create-listing' element={<CreateListing />} />
-          <Route path='/update-listing/:id' element={<UpdateListing />} />
-        </Route>
+        <Route path='/profile' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+        <Route path='/create-listing' element={<PrivateRoute><CreateListing /></PrivateRoute>} />
+        <Route path='/update-listing/:id' element={<PrivateRoute><UpdateListing /></PrivateRoute>} />
       </Routes>
     </>
   );
