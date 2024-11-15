@@ -115,7 +115,7 @@ function HomePage() {
               <div className="">
                 <div className="my-4">
                   <h2 className="text-2xl font-semibold text-slate-700">Recent plase for sale</h2>
-                  <Link to={'/search?type=sell'} className="text-blue-900 hover:underline">Show more plase for rent</Link>
+                  <Link to={'/search?type=sell'} className="text-blue-900 hover:underline">Show more place for sale</Link>
                 </div>
                 <div className="flex flex-wrap gap-5">
                   {saleListing.map((listing)=>(
