@@ -68,7 +68,7 @@ function Listing() {
 
           <div className="p-4 flex flex-col gap-3">
             <div className="text-3xl font-semibold">
-              <p>{listing.name} -  <span className="text-slate-700 text-2xl">${+listing.regularPrice - +listing.discountPrice}/Month</span></p>
+              <p>{listing.name} -  <span className="text-slate-700 text-2xl">{+listing.regularPrice - +listing.discountPrice}{listing.type == 'rent' ? '/Mounth': ''}Birr</span></p>
             </div>
             <div className="text-green-700 flex flex-row items-center gap-2 sm:gap-4 font-semibold mt-6">
               <FaMapMarkerAlt />
@@ -76,7 +76,7 @@ function Listing() {
             </div>
             <div className="flex gap-4 sm:gap-6 font-semibold text-center text-white">
               <p className="bg-red-700 rounded-md p-2 min-w-40">{listing.type == 'rent' ? 'For Rent': 'For Sell'}</p>
-              {listing.discountPrice && <p className="bg-green-700 rounded-md p-2 min-w-40">${listing.discountPrice} Discounts</p>}
+              {listing.discountPrice && <p className="bg-green-700 rounded-md p-2 min-w-40">{listing.discountPrice} Birr Discounts</p>}
             </div>
             <div>
               <p><span className="font-semibold">Discription - </span> {listing.description}</p>

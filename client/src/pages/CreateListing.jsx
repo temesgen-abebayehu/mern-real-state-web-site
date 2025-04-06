@@ -262,7 +262,7 @@ function CreateListing() {
               <div className="flex gap-2 items-center">
                 <div className="flex flex-col text-center">
                   <span>Regular Price * :</span>
-                  <span className="font-light">($/mounth)</span>
+                  <span className="font-light">(Birr/mounth)</span>
                 </div>
                 <input
                   type="number"
@@ -279,7 +279,7 @@ function CreateListing() {
                 <div className="flex gap-2 items-center">
                 <div className="flex flex-col text-center">
                   <span>Discount Price * :</span>
-                  <span className="font-light">($/mounth)</span>
+                  <span className="font-light">(Birr/mounth)</span>
                 </div>
                 <input
                   type="number"
