@@ -68,7 +68,7 @@ function Listing() {
 
           <div className="p-4 flex flex-col gap-3">
             <div className="text-3xl font-semibold">
-              <p>{listing.name} -  <span className="text-slate-700 text-2xl">{+listing.regularPrice - +listing.discountPrice}{listing.type == 'rent' ? '/Month': ''} Birr</span></p>
+              <p>{listing.name} -  <span className="text-slate-700 text-2xl">{+listing.regularPrice - +listing.discountPrice} Birr {listing.type == 'rent' ? '/Month': ''}</span></p>
             </div>
             <div className="text-green-700 flex flex-row items-center gap-2 sm:gap-4 font-semibold mt-6">
               <FaMapMarkerAlt />
